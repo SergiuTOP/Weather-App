@@ -17,7 +17,6 @@ app.use(express.static("public"));
 // I create a GET method in order to get the data from the API then I render the index.ejs file
 app.get("/", async (req, res) => {
   try {
-    const input = req.query.input;
     const result = await axios.get(API_URL, {
       params: {
         place_id: "chisinau",
@@ -33,8 +32,8 @@ app.get("/", async (req, res) => {
       precipitation: result.data.current.precipitation.type,
       lat: result.data.lat,
       lon: result.data.lon,
-      temp_min: result.data.daily.data[0].temperature_min,
-      temp_max: result.data.daily.data[0].temperature_max,
+      temp_min: result.data.daily.data[0].all_day.temperature_min,
+      temp_max: result.data.daily.data[0].all_day.temperature_max,
     });
   } catch (error) {
     res.status(404).send(error.message);
@@ -62,8 +61,8 @@ app.post("/add", async (req, res) => {
       precipitation: result.data.current.precipitation.type,
       lat: result.data.lat,
       lon: result.data.lon,
-      temp_min: result.data.daily.data[0].temperature_min,
-      temp_max: result.data.daily.data[0].temperature_max,
+      temp_min: result.data.daily.data[0].all_day.temperature_min,
+      temp_max: result.data.daily.data[0].all_day.temperature_max,
     });
   } catch (error) {
     res.status(404).send(error.message);
